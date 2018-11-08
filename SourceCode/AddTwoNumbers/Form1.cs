@@ -16,5 +16,10 @@ namespace AddTwoNumbers
         {
             InitializeComponent();
         }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            result.Text = (Convert.ToInt32(number1.Text) + Convert.ToInt32(number2.Text)).ToString();
+        }
     }
 }
