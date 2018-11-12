@@ -19,7 +19,35 @@ namespace AddTwoNumbers
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            result.Text = (Convert.ToInt32(number1.Text) + Convert.ToInt32(number2.Text)).ToString();
+            int number1, number2;
+            try
+            {
+                
+                if (number1TextBox.Text == "" || number2TextBox.Text == "")
+                {
+                    MessageBox.Show("Enter a number");
+                    return;
+                }
+                
+                if (int.TryParse(number1TextBox.Text, out number1)==false || 
+                    int.TryParse(number2TextBox.Text, out number2)==false)
+
+                    MessageBox.Show("Number is not in correct format.");
+                
+                else
+                    SumTextBox.Text = (number1 + number2).ToString();
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+        }
+
+        private void number1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
