@@ -19,7 +19,6 @@ namespace AddTwoNumbers
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            //test change in master branch
             int number1, number2;
             try
             {
@@ -39,17 +38,10 @@ namespace AddTwoNumbers
                     SumTextBox.Text = (number1 + number2).ToString();
 
             }
-            //learning develop branch
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-
-        }
-
-        private void number1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

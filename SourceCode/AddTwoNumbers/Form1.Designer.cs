@@ -75,7 +75,6 @@
             this.number1TextBox.Name = "number1TextBox";
             this.number1TextBox.Size = new System.Drawing.Size(148, 26);
             this.number1TextBox.TabIndex = 4;
-            this.number1TextBox.TextChanged += new System.EventHandler(this.number1_TextChanged);
             // 
             // number2TextBox
             // 
