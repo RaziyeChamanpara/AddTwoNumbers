@@ -42,12 +42,6 @@ namespace AddTwoNumbers
             {
                 MessageBox.Show(exception.Message);
             }
-
-        }
-
-        private void number1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
