@@ -39,7 +39,6 @@
             this.priviousButton = new System.Windows.Forms.Button();
             this.firstButton = new System.Windows.Forms.Button();
             this.lastButton = new System.Windows.Forms.Button();
-            this.clearButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addButton
@@ -125,7 +124,7 @@
             this.priviousButton.TabIndex = 10;
             this.priviousButton.Text = "Privious";
             this.priviousButton.UseVisualStyleBackColor = true;
-            this.priviousButton.Click += new System.EventHandler(this.priviousButton_Click);
+            this.priviousButton.Click += new System.EventHandler(this.previousButton_Click);
             // 
             // firstButton
             // 
@@ -147,22 +146,11 @@
             this.lastButton.UseVisualStyleBackColor = true;
             this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
             // 
-            // clearButton
-            // 
-            this.clearButton.Location = new System.Drawing.Point(543, 383);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(112, 31);
-            this.clearButton.TabIndex = 13;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
-            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
-            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.lastButton);
             this.Controls.Add(this.firstButton);
             this.Controls.Add(this.priviousButton);
@@ -196,7 +184,6 @@
         private System.Windows.Forms.Button priviousButton;
         private System.Windows.Forms.Button firstButton;
         private System.Windows.Forms.Button lastButton;
-        private System.Windows.Forms.Button clearButton;
     }
 }
 
