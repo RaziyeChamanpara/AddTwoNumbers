@@ -17,18 +17,28 @@ namespace AddTwoNumbers
             InitializeComponent();
         }
 
-        public History history = new History();
-        public AddTwoNumbersEntities db = new AddTwoNumbersEntities();
-        public int currentId { get; set; }
+        private AddTwoNumbersEntities _db = new AddTwoNumbersEntities();
+        private List<History> _histories = new List<History>();
+        private int _currentIndex = -1;
+
+        private void LoadFromDatabase()
+        {
+            _histories = _db.Histories.ToList();
+        }
+
+        private void SaveToDatabase(History history)
+        {
+            _db.Histories.Add(history);
+            _db.SaveChanges();
+        }
 
         private void AddForm_Load(object sender, EventArgs e)
         {
-            if (db.Histories.Count() > 0)
+            LoadFromDatabase();
+            if (_histories.Count() > 0)
             {
-                number1TextBox.Text = db.Histories.First().Number1.ToString();
-                number2TextBox.Text = db.Histories.First().Number2.ToString();
-                SumTextBox.Text = db.Histories.First().Sum.ToString();
-                currentId = 1;
+                Display(_histories.First());
+                _currentIndex = 0;
             }
         }
 
@@ -53,90 +63,98 @@ namespace AddTwoNumbers
                 {
                     SumTextBox.Text = (number1 + number2).ToString();
 
-                    history.Number1 = number1;
-                    history.Number2 = number2;
-                    history.Sum = Convert.ToInt32(SumTextBox.Text);
+                    var history = GetHistoryFromForm();
+                    _histories.Add(history);
+                    SaveToDatabase(history);
 
-                    db.Histories.Add(history);
-
-                    db.SaveChanges();
-
-                    currentId = db.Histories.OrderByDescending
-                                            (h => h.Id).First().Id;
-
+                    _currentIndex = _histories.Count - 1;
                 }
-
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-
         }
 
         private void firstButton_Click(object sender, EventArgs e)
         {
-            number1TextBox.Text = db.Histories.First().Number1.ToString();
-            number2TextBox.Text = db.Histories.First().Number2.ToString();
-            SumTextBox.Text = db.Histories.First().Sum.ToString();
-            currentId = db.Histories.First().Id;
+            var history = _histories.FirstOrDefault();
+            if (history == null)
+                EmptyList();
+            else
+            {
+                Display(history);
+                _currentIndex = 0;
+            }
         }
 
         private void lastButton_Click(object sender, EventArgs e)
         {
-            number1TextBox.Text = db.Histories.OrderByDescending(h => h.Id).
-                First().Number1.ToString();
+            _currentIndex = _histories.Count - 1;
 
-            number2TextBox.Text = db.Histories.OrderByDescending(h => h.Id).
-                First().Number2.ToString();
-
-            SumTextBox.Text = db.Histories.OrderByDescending(h => h.Id).
-                First().Sum.ToString();
-
-            currentId = db.Histories.OrderByDescending(h => h.Id)
-               .First().Id;
-
-        }
-
-        private void clearButton_Click(object sender, EventArgs e)
-        {
-            number1TextBox.Clear();
-            number2TextBox.Clear();
-            SumTextBox.Clear();
-            currentId = 0;
+            if (_currentIndex < 0)
+                EmptyList();
+            else
+            {
+                var history = _histories[_currentIndex];
+                Display(history);
+            }
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (currentId == 0)
-                firstButton_Click(sender, e);
-
-            else if (currentId == db.Histories.Count())
-                MessageBox.Show("This is the last record.");
-
+            if (_currentIndex == -1)
+                EmptyList();
             else
             {
-                History history = (from h in db.Histories
-                                   where h.Id > currentId
-                                   orderby h.Id
-                                   ascending
-                                   select h)
-                                  .FirstOrDefault();
+                _currentIndex += 1;
 
-                number1TextBox.Text = history.Number1.ToString();
-                number2TextBox.Text = history.Number2.ToString();
-                SumTextBox.Text = history.Sum.ToString();
+                if (_currentIndex >= _histories.Count)
+                    MessageBox.Show("This is the last item.");
 
-                currentId += 1;
-
+                else
+                    Display(_histories[_currentIndex]);
             }
 
         }
 
-        private void priviousButton_Click(object sender, EventArgs e)
+        private void previousButton_Click(object sender, EventArgs e)
         {
+            if (_currentIndex == -1)
+                EmptyList();
+            else
+            {
+                _currentIndex -= 1;
+                if (_currentIndex == -1)
+                    MessageBox.Show("this is the first item.");
+                else
 
+                    Display(_histories[_currentIndex]);
+            }
 
+        }
+
+        public void Display(History history)
+        {
+            number1TextBox.Text = history.Number1.ToString();
+            number2TextBox.Text = history.Number2.ToString();
+            SumTextBox.Text = history.Sum.ToString();
+        }
+
+        public History GetHistoryFromForm()
+        {
+            History history = new History();
+
+            history.Number1 = Convert.ToInt32(number1TextBox.Text);
+            history.Number2 = Convert.ToInt32(number2TextBox.Text);
+            history.Sum = Convert.ToInt32(SumTextBox.Text);
+
+            return history;
+        }
+
+        private void EmptyList()
+        {
+            MessageBox.Show("There is nothing in list yet.");
         }
     }
 }
