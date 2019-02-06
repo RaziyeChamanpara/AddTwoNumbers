@@ -1,6 +1,6 @@
 ﻿namespace AddTwoNumbers
 {
-    partial class Form1
+    partial class AddForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,10 @@
             this.number2TextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SumTextBox = new System.Windows.Forms.TextBox();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.priviousButton = new System.Windows.Forms.Button();
+            this.firstButton = new System.Windows.Forms.Button();
+            this.lastButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addButton
@@ -102,11 +106,55 @@
             this.SumTextBox.Size = new System.Drawing.Size(148, 26);
             this.SumTextBox.TabIndex = 7;
             // 
-            // Form1
+            // nextButton
+            // 
+            this.nextButton.Location = new System.Drawing.Point(802, 448);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(150, 45);
+            this.nextButton.TabIndex = 9;
+            this.nextButton.Text = "Next";
+            this.nextButton.UseVisualStyleBackColor = true;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // priviousButton
+            // 
+            this.priviousButton.Location = new System.Drawing.Point(242, 450);
+            this.priviousButton.Name = "priviousButton";
+            this.priviousButton.Size = new System.Drawing.Size(175, 45);
+            this.priviousButton.TabIndex = 10;
+            this.priviousButton.Text = "Privious";
+            this.priviousButton.UseVisualStyleBackColor = true;
+            this.priviousButton.Click += new System.EventHandler(this.previousButton_Click);
+            // 
+            // firstButton
+            // 
+            this.firstButton.Location = new System.Drawing.Point(438, 450);
+            this.firstButton.Name = "firstButton";
+            this.firstButton.Size = new System.Drawing.Size(140, 45);
+            this.firstButton.TabIndex = 11;
+            this.firstButton.Text = "First";
+            this.firstButton.UseVisualStyleBackColor = true;
+            this.firstButton.Click += new System.EventHandler(this.firstButton_Click);
+            // 
+            // lastButton
+            // 
+            this.lastButton.Location = new System.Drawing.Point(615, 450);
+            this.lastButton.Name = "lastButton";
+            this.lastButton.Size = new System.Drawing.Size(143, 43);
+            this.lastButton.TabIndex = 12;
+            this.lastButton.Text = "Last";
+            this.lastButton.UseVisualStyleBackColor = true;
+            this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
+            // 
+            // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.lastButton);
+            this.Controls.Add(this.firstButton);
+            this.Controls.Add(this.priviousButton);
+            this.Controls.Add(this.nextButton);
             this.Controls.Add(this.SumTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.number2TextBox);
@@ -115,8 +163,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.addButton);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "AddForm";
+            this.Text = "AddForm";
+            this.Load += new System.EventHandler(this.AddForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +180,10 @@
         private System.Windows.Forms.TextBox number2TextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox SumTextBox;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button priviousButton;
+        private System.Windows.Forms.Button firstButton;
+        private System.Windows.Forms.Button lastButton;
     }
 }
 
