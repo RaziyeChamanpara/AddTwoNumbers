@@ -19,7 +19,7 @@ namespace AddTwoNumbers
 
         private AddTwoNumbersEntities _db = new AddTwoNumbersEntities();
         private List<History> _histories = new List<History>();
-        private int _currentIndex = -1;
+        private int _currentIndex;
 
         private void LoadFromDatabase()
         {
@@ -35,11 +35,7 @@ namespace AddTwoNumbers
         private void AddForm_Load(object sender, EventArgs e)
         {
             LoadFromDatabase();
-            if (_histories.Count() > 0)
-            {
-                _currentIndex = 0;
-                Display(_currentIndex);
-            }
+            Display(_currentIndex);
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -78,69 +74,36 @@ namespace AddTwoNumbers
 
         private void firstButton_Click(object sender, EventArgs e)
         {
-            var history = _histories.FirstOrDefault();
-            if (history == null)
-                EmptyList();
-            else
-            {
-                _currentIndex = 0;
-                Display(_currentIndex);
-            }
+            Display(0);
         }
 
         private void lastButton_Click(object sender, EventArgs e)
         {
-            _currentIndex = _histories.Count - 1;
-
-            if (_currentIndex < 0)
-                EmptyList();
-            else
-            {
-                var history = _histories[_currentIndex];
-                Display(_currentIndex);
-            }
+            Display(_histories.Count - 1);
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (_currentIndex == -1)
-                EmptyList();
-            else
-            {
-                _currentIndex += 1;
-
-                if (_currentIndex >= _histories.Count)
-                    MessageBox.Show("This is the last item.");
-
-                else
-                    Display(_currentIndex);
-            }
-
+            Display(_currentIndex + 1);
         }
 
         private void previousButton_Click(object sender, EventArgs e)
         {
-            if (_currentIndex == -1)
-                EmptyList();
-            else
-            {
-                _currentIndex -= 1;
-                if (_currentIndex == -1)
-                {
-                    MessageBox.Show("this is the first item.");
-                    _currentIndex = 0;
-                }
-                else
-
-                    Display(_currentIndex);
-            }
+            Display(_currentIndex - 1);
         }
 
         public void Display(int index)
         {
+            if (index < 0 || index > _histories.Count - 1)
+            {
+                MessageBox.Show("Out of range");
+                return;
+            }
+
             number1TextBox.Text = _histories[index].Number1.ToString();
             number2TextBox.Text = _histories[index].Number2.ToString();
             SumTextBox.Text = _histories[index].Sum.ToString();
+            _currentIndex = index;
         }
 
         public History GetHistoryFromForm()
