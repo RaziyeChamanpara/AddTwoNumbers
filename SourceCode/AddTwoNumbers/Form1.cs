@@ -37,8 +37,8 @@ namespace AddTwoNumbers
             LoadFromDatabase();
             if (_histories.Count() > 0)
             {
-                Display(_histories.First());
                 _currentIndex = 0;
+                Display(_currentIndex);
             }
         }
 
@@ -83,8 +83,8 @@ namespace AddTwoNumbers
                 EmptyList();
             else
             {
-                Display(history);
                 _currentIndex = 0;
+                Display(_currentIndex);
             }
         }
 
@@ -97,7 +97,7 @@ namespace AddTwoNumbers
             else
             {
                 var history = _histories[_currentIndex];
-                Display(history);
+                Display(_currentIndex);
             }
         }
 
@@ -113,7 +113,7 @@ namespace AddTwoNumbers
                     MessageBox.Show("This is the last item.");
 
                 else
-                    Display(_histories[_currentIndex]);
+                    Display(_currentIndex);
             }
 
         }
@@ -126,19 +126,21 @@ namespace AddTwoNumbers
             {
                 _currentIndex -= 1;
                 if (_currentIndex == -1)
+                {
                     MessageBox.Show("this is the first item.");
+                    _currentIndex = 0;
+                }
                 else
 
-                    Display(_histories[_currentIndex]);
+                    Display(_currentIndex);
             }
-
         }
 
-        public void Display(History history)
+        public void Display(int index)
         {
-            number1TextBox.Text = history.Number1.ToString();
-            number2TextBox.Text = history.Number2.ToString();
-            SumTextBox.Text = history.Sum.ToString();
+            number1TextBox.Text = _histories[index].Number1.ToString();
+            number2TextBox.Text = _histories[index].Number2.ToString();
+            SumTextBox.Text = _histories[index].Sum.ToString();
         }
 
         public History GetHistoryFromForm()
