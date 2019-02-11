@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataAccess;
 
 namespace AddTwoNumbers
 {
@@ -17,24 +18,12 @@ namespace AddTwoNumbers
             InitializeComponent();
         }
 
-        private AddTwoNumbersEntities _db = new AddTwoNumbersEntities();
-        private List<History> _histories = new List<History>();
         private int _currentIndex;
-
-        private void LoadFromDatabase()
-        {
-            _histories = _db.Histories.ToList();
-        }
-
-        private void SaveToDatabase(History history)
-        {
-            _db.Histories.Add(history);
-            _db.SaveChanges();
-        }
+        private HistoryDatabase _data = new HistoryDatabase();
 
         private void AddForm_Load(object sender, EventArgs e)
         {
-            LoadFromDatabase();
+            _data.LoadFromDatabase();
             Display(_currentIndex);
         }
 
@@ -60,10 +49,9 @@ namespace AddTwoNumbers
                     SumTextBox.Text = (number1 + number2).ToString();
 
                     var history = GetHistoryFromForm();
-                    _histories.Add(history);
-                    SaveToDatabase(history);
-
-                    _currentIndex = _histories.Count - 1;
+                    _data.Histories.Add(history);
+                    _data.SaveToDatabase(history);
+                    _currentIndex = _data.Histories.Count - 1;
                 }
             }
             catch (Exception exception)
@@ -79,7 +67,7 @@ namespace AddTwoNumbers
 
         private void lastButton_Click(object sender, EventArgs e)
         {
-            Display(_histories.Count - 1);
+            Display(_data.Histories.Count - 1);
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -94,15 +82,15 @@ namespace AddTwoNumbers
 
         public void Display(int index)
         {
-            if (index < 0 || index > _histories.Count - 1)
+            if (index < 0 || index > _data.Histories.Count - 1)
             {
                 MessageBox.Show("Out of range");
                 return;
             }
 
-            number1TextBox.Text = _histories[index].Number1.ToString();
-            number2TextBox.Text = _histories[index].Number2.ToString();
-            SumTextBox.Text = _histories[index].Sum.ToString();
+            number1TextBox.Text = _data.Histories[index].Number1.ToString();
+            number2TextBox.Text = _data.Histories[index].Number2.ToString();
+            SumTextBox.Text = _data.Histories[index].Sum.ToString();
             _currentIndex = index;
         }
 
@@ -117,9 +105,5 @@ namespace AddTwoNumbers
             return history;
         }
 
-        private void EmptyList()
-        {
-            MessageBox.Show("There is nothing in list yet.");
-        }
     }
 }

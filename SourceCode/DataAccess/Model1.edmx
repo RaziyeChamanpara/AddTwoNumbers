@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AddTwoNumbersModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DatabaseModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="History">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,16 +14,13 @@
           <Property Name="Number2" Type="int" Nullable="false" />
           <Property Name="Sum" Type="int" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="AddTwoNumbersModelStoreContainer">
+        <EntityContainer Name="DatabaseModelsStoreContainer">
           <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="AddTwoNumbersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="AddTwoNumbersEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Histories" EntityType="AddTwoNumbersModel.History" />
-        </EntityContainer>
+      <Schema Namespace="DatabaseModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="History">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,19 +30,22 @@
           <Property Name="Number2" Type="Int32" Nullable="false" />
           <Property Name="Sum" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="AddTwoNumbersEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Histories" EntityType="Self.History" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AddTwoNumbersModelStoreContainer" CdmEntityContainer="AddTwoNumbersEntities">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelsStoreContainer" CdmEntityContainer="AddTwoNumbersEntities">
           <EntitySetMapping Name="Histories">
-            <EntityTypeMapping TypeName="AddTwoNumbersModel.History">
+            <EntityTypeMapping TypeName="DatabaseModels.History">
               <MappingFragment StoreEntitySet="History">
-                <ScalarProperty Name="Sum" ColumnName="Sum" />
-                <ScalarProperty Name="Number2" ColumnName="Number2" />
-                <ScalarProperty Name="Number1" ColumnName="Number1" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number1" ColumnName="Number1" />
+                <ScalarProperty Name="Number2" ColumnName="Number2" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
