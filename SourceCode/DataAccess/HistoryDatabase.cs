@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class HistoryDatabase
+    public class HistoryDatabase: IHistoryDatabase
     {
-        private AddTwoNumbersEntities _db = new AddTwoNumbersEntities();
-        public List<History> Histories { get; set; }
+        AddTwoNumbersEntities Db = new AddTwoNumbersEntities();
 
-        public void LoadFromDatabase()
+        public List<History> GetAll()
         {
-            Histories = _db.Histories.ToList();
+            return Db.Histories.ToList();
         }
 
         public void SaveToDatabase(History history)
         {
-            _db.Histories.Add(history);
-            _db.SaveChanges();
+            Db.Histories.Add(history);
+            Db.SaveChanges();
         }
     }
-
-
 }
