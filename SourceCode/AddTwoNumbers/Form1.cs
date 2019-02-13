@@ -13,51 +13,38 @@ namespace AddTwoNumbers
 {
     public partial class AddForm : Form
     {
-        public AddForm()
+        public AddForm(IHistoryDatabase historyDatabase)
         {
             InitializeComponent();
+            _historyDatabase = historyDatabase;
         }
 
         private int _currentIndex;
-        private HistoryDatabase _data = new HistoryDatabase();
+        private List<History> Histories { get; set; }
+        private IHistoryDatabase _historyDatabase;
 
         private void AddForm_Load(object sender, EventArgs e)
         {
-            _data.LoadFromDatabase();
+            Histories = _historyDatabase.GetAll();
             Display(_currentIndex);
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
             int number1, number2;
-            try
+            if (number1TextBox.Text == "" || number2TextBox.Text == "")
             {
-
-                if (number1TextBox.Text == "" || number2TextBox.Text == "")
-                {
-                    MessageBox.Show("Enter a number");
-                    return;
-                }
-
-                if (int.TryParse(number1TextBox.Text, out number1) == false ||
-                    int.TryParse(number2TextBox.Text, out number2) == false)
-
-                    MessageBox.Show("Number is not in correct format.");
-
-                else
-                {
-                    SumTextBox.Text = (number1 + number2).ToString();
-
-                    var history = GetHistoryFromForm();
-                    _data.Histories.Add(history);
-                    _data.SaveToDatabase(history);
-                    _currentIndex = _data.Histories.Count - 1;
-                }
+                MessageBox.Show("Enter a number");
+                return;
             }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
+            if (int.TryParse(number1TextBox.Text, out number1) == false ||
+                int.TryParse(number2TextBox.Text, out number2) == false)
+
+                MessageBox.Show("Number is not in correct format.");
+
+            else
+                SumTextBox.Text = (number1 + number2).ToString();
+
         }
 
         private void firstButton_Click(object sender, EventArgs e)
@@ -67,7 +54,7 @@ namespace AddTwoNumbers
 
         private void lastButton_Click(object sender, EventArgs e)
         {
-            Display(_data.Histories.Count - 1);
+            Display(Histories.Count - 1);
         }
 
         private void nextButton_Click(object sender, EventArgs e)
@@ -80,17 +67,24 @@ namespace AddTwoNumbers
             Display(_currentIndex - 1);
         }
 
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            History history = GetHistoryFromForm();
+            Histories.Add(history);
+            _historyDatabase.SaveToDatabase(history);
+        }
+
         public void Display(int index)
         {
-            if (index < 0 || index > _data.Histories.Count - 1)
+            if (index < 0 || index > Histories.Count - 1)
             {
                 MessageBox.Show("Out of range");
                 return;
             }
 
-            number1TextBox.Text = _data.Histories[index].Number1.ToString();
-            number2TextBox.Text = _data.Histories[index].Number2.ToString();
-            SumTextBox.Text = _data.Histories[index].Sum.ToString();
+            number1TextBox.Text = Histories[index].Number1.ToString();
+            number2TextBox.Text = Histories[index].Number2.ToString();
+            SumTextBox.Text = Histories[index].Sum.ToString();
             _currentIndex = index;
         }
 
