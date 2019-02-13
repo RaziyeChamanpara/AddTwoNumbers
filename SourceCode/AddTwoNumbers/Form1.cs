@@ -13,7 +13,7 @@ namespace AddTwoNumbers
 {
     public partial class AddForm : Form
     {
-        public AddForm(IHistoryDatabase historyDatabase)
+        public AddForm(IHistoryRepository historyDatabase)
         {
             InitializeComponent();
             _historyDatabase = historyDatabase;
@@ -21,7 +21,7 @@ namespace AddTwoNumbers
 
         private int _currentIndex;
         private List<History> Histories { get; set; }
-        private IHistoryDatabase _historyDatabase;
+        private IHistoryRepository _historyDatabase;
 
         private void AddForm_Load(object sender, EventArgs e)
         {
@@ -71,7 +71,7 @@ namespace AddTwoNumbers
         {
             History history = GetHistoryFromForm();
             Histories.Add(history);
-            _historyDatabase.SaveToDatabase(history);
+            _historyDatabase.Save(history);
         }
 
         public void Display(int index)

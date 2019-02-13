@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class HistoryDatabase: IHistoryDatabase
+    public class HistoryRepository: IHistoryRepository
     {
         AddTwoNumbersEntities Db = new AddTwoNumbersEntities();
 
@@ -15,7 +15,7 @@ namespace DataAccess
             return Db.Histories.ToList();
         }
 
-        public void SaveToDatabase(History history)
+        public void Save(History history)
         {
             Db.Histories.Add(history);
             Db.SaveChanges();

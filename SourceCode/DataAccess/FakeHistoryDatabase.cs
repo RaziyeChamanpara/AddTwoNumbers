@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class FakeHistoryDatabase : IHistoryDatabase
+    public class FakeHistoryRepository : IHistoryRepository
     {
         public List<History> GetAll()
         {
@@ -19,7 +19,7 @@ namespace DataAccess
 
         }
 
-        public void SaveToDatabase(History history)
+        public void Save(History history)
         {
         }
     }

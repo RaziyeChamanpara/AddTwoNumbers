@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public interface IHistoryDatabase
+    public interface IHistoryRepository
     {
         List<History> GetAll();
-        void SaveToDatabase(History history);
+        void Save(History history);
     }
 }

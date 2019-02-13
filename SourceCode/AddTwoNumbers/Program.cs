@@ -17,7 +17,7 @@ namespace AddTwoNumbers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddForm(new HistoryDatabase() ));
+            Application.Run(new AddForm(new HistoryRepository() ));
         }
     }
 }
