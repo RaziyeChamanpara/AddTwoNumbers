@@ -1,6 +1,6 @@
 # Add Two Numbers
 
-This project is a sample two-layered application which simply adds two numbers and displays the sum and has the ability to persist the history of past opertaions in sql server database.
+This project is a sample two-layered application which simply adds two numbers and displays the sum and has the ability to persist the history of past opertaions in a sql server database.
 
 # Implementation Details
 
