@@ -39,11 +39,12 @@
             this.priviousButton = new System.Windows.Forms.Button();
             this.firstButton = new System.Windows.Forms.Button();
             this.lastButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(543, 277);
+            this.addButton.Location = new System.Drawing.Point(543, 261);
             this.addButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(112, 35);
@@ -146,11 +147,22 @@
             this.lastButton.UseVisualStyleBackColor = true;
             this.lastButton.Click += new System.EventHandler(this.lastButton_Click);
             // 
+            // saveButton
+            // 
+            this.saveButton.Location = new System.Drawing.Point(543, 389);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(112, 38);
+            this.saveButton.TabIndex = 13;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
             // AddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.lastButton);
             this.Controls.Add(this.firstButton);
             this.Controls.Add(this.priviousButton);
@@ -184,6 +196,7 @@
         private System.Windows.Forms.Button priviousButton;
         private System.Windows.Forms.Button firstButton;
         private System.Windows.Forms.Button lastButton;
+        private System.Windows.Forms.Button saveButton;
     }
 }
 

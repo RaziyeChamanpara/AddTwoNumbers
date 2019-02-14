@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AddTwoNumbers
+namespace DataAccess
 {
     using System;
     using System.Data.Entity;
